@@ -1,0 +1,649 @@
+html, body {
+  /* background-color: #CFCFCF; */
+  margin: 0;
+  margin-left: 2em;
+  margin-right: 2em;
+}
+
+/* latin */
+@font-face {
+  font-family: 'Cousine';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Cousine Regular'), local('Cousine-Regular'), url(https://fonts.gstatic.com/s/cousine/v14/d6lIkaiiRdih4SpP_SQvzA.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* latin */
+@font-face {
+  font-family: 'Cousine';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Cousine Bold'), local('Cousine-Bold'), url(https://fonts.gstatic.com/s/cousine/v14/d6lNkaiiRdih4SpP9Z8K2TnM0g.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+
+title
+{
+text-decoration:none;
+}
+
+footer{
+  font-family: 'Cousine';
+  font-size: 75%;
+  text-align: Center;
+  margin-top: 2em;
+  margin-bottom: 2em;
+}
+
+
+h1, h2, h3, h4 {
+  font-weight: normal;
+}
+
+h1 {
+  margin-top: 0;
+  padding-top: 30px;
+}
+h1 a
+{
+text-decoration: none;
+color:black;
+font-weight: regular;
+/* background-color: white; */
+}
+h1 a:hover
+{
+  color: #BEBEBE
+}
+h2
+{
+font-family: 'Cousine';
+text-decoration:none;
+color:black;
+}
+h2 a
+{
+text-decoration:none;
+color:black;
+/* background-color: white; */
+}
+h2 a:hover
+{
+  color: #666666
+}
+h3 a
+{
+text-decoration:none;
+color:black;
+background-color: white;
+}
+h3 a:hover
+{
+  color: #666666
+}
+h4 a
+{
+text-decoration:none;
+color:black;
+}
+h4 a:hover
+{
+  color: #666666
+}
+
+p
+{
+text-decoration:none;
+color:black;
+font-family: 'Cousine';
+}
+p a
+{
+text-decoration:none;
+color:black;
+}
+
+  div.a {
+    font-family: 'Cousine';
+    text-align: center;
+    text-decoration: none;
+    color: black;
+
+  }
+
+  div.b {
+    font-family: 'Cousine';
+    text-indent: 300px;
+    text-decoration: none;
+  }
+
+  f.c {
+    font-family: 'Cousine';
+  }
+
+  f.a {
+    font-size: 130%;
+    text-decoration: none;
+    font-family: 'Cousine';
+  /*  background-color: white; */
+  }
+
+  a.pon {
+    opacity: .4;
+    text-decoration:none;
+    color: #D193EE;
+    position: absolute;
+    bottom: 25%;
+    left: 10%;
+  }
+
+  a.pon:hover{
+    opacity: .9;
+    text-shadow: 2px 1px 3px #BCC2F1;
+  }
+
+  .social-link {
+    padding: 10px;
+    border: 1px;
+    border-radius: 5px;
+    text-decoration:none;
+    opacity: 0.7;
+  }
+  .social-link:hover {
+    opacity: 1;
+  }
+
+  .imageContainer {
+         width:100%;
+         height: 75vh;
+         background-repeat: no-repeat;
+         background-size: cover;
+         /* background-image: url(foggy.png); */
+   }
+
+  .list{
+    text-decoration: none;
+    /*font-family: 'Cousine';*/
+    font-family: 'Cousine', monospace;
+    text-align: center;
+    padding-top: 150px;
+    margin-bottom: 200px;
+
+  }
+
+  .gap
+   {
+     padding: 20px 50px;
+     color: #666666;
+   }
+
+   .bottomright {
+     opacity: .4;
+     position: absolute;
+     font-family: 'Cousine';
+     text-decoration: none;
+     bottom: 15%;
+     right: 10%;
+     font-size: 16px;
+     color: #7FACE7;
+   }
+
+   .bottomright:hover {
+      text-shadow: 2px 1px 3px #2932E9;
+      opacity:.9;
+   }
+
+.ga{
+  position: absolute;
+  top:3%;
+  right: 2%;
+  font-family: 'Cousine';
+  text-decoration: none;
+  color: white;
+  background-color: green;
+}
+
+.ga:hover {
+  background-color: #0DAA2B;
+}
+
+.en{
+  position: absolute;
+  top:3%;
+  right: 2%;
+  font-family: 'Cousine';
+  text-decoration: none;
+  color: white;
+  background-color: #1187AB;
+}
+
+.en:hover {
+  background-color: #18B1E0;
+}
+
+.submit {
+  font-family: 'Cousine';
+  color: white;
+  background-color: #9225DB;
+  border: 2px solid purple;
+  border-radius: 5px;
+}
+
+.submit:hover {
+  background-color: #B261E9;
+}
+
+input[type="text"] {
+  font-family: 'Cousine';
+}
+
+table {
+  font-family: 'Cousine';
+  width: 100%;
+  z-index:1;
+}
+
+table#scores td {
+  font-size: 0.8em;
+}
+
+table#scores td a {
+  font-size: 1.5em;
+}
+
+#projects {
+  font-size: 1em;
+}
+#projects a {
+  font-size: 1.5em;
+}
+
+.deeper h1, h2, h3, h4{
+  font-family: Cousine;
+  text-decoration: none;
+  color:black;
+  font-weight: regular;
+  text-align: center;
+}
+
+.deeper a:hover{
+  text-shadow: 2px 1px 3px #7361EA;
+}
+
+#deeper {
+  font-size: 1.5em;
+}
+#deeper a {
+  font-size: 1.5em;
+}
+#deeper a:hover {
+  text-shadow: 2px 1px 3px #7361EA;
+}
+
+td, th {
+  text-align: left;
+  padding: 4px;
+}
+
+th{
+  font-size: 110%
+}
+
+td a, th a {
+  text-decoration: none;
+  color: black;
+}
+td a:hover {
+  color: #666666;
+}
+.video-images
+{
+  text-align: center;
+
+}
+#video-modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0, 0.8);
+}
+#video-modal iframe {
+  margin: 100px auto 0 auto;
+  display: block;
+}
+#video-modal.showing {
+  display: block;
+  left: 0px;
+}
+  .center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 48%;
+}
+
+.shadow-header {
+  text-shadow: 2px 1px 3px white;
+}
+
+.focal{
+  height: 70px;
+  width: 600px;
+  background: white;
+  border-radius: 4px;
+  font-size: 50px;
+  padding: 6px 0px 6px 0px;
+  letter-spacing: 3px;
+  text-align: center;
+}
+
+.generate{
+  margin-top: 10px;
+  border: none;
+  background: pink;
+  font-size: 22px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 3px;
+  height: 40px;
+  width: 33%;
+  cursor: pointer;
+}
+
+h1 a:hover {
+  color: blue;
+}
+
+#edo table tr:first-child td {
+    font-weight: bold;
+    background-color: rgb(120, 158, 201);
+}
+
+#edo table {
+  max-width: 33%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(160, 181, 206);
+  border-collapse: collapse;
+  border: 2px solid #c9cee9;
+}
+#edo td {
+  text-align: right;
+}
+
+form{
+  position: relative;
+  left: 20px;
+}
+form span{
+  font-size: 90%;
+}
+form input{
+  display:grid;
+  margin-bottom: 5px;
+  border: none;
+  background:rgba(255, 207, 50, 0.425);
+  border-radius: 5px;
+  outline: none !important;
+}
+form button{
+  font-size: 115%;
+}
+
+p {
+  font-size: 75%;
+  margin-bottom: 0;
+}
+
+span{
+  font-family: Cousine;
+}
+
+select{
+  font-family: Cousine;
+  font-size: 110%;
+  color: #000000;
+  background: #c6d1e0;
+  border: none;
+  border-right: 2px solid rgba(100, 100, 100, 0.2);
+  border-top: 1px solid rgba(109, 109, 109, 0.2);
+  border-radius: 5px;
+  outline: none !important;
+  transition: background 0.5s;
+}
+
+select:hover{
+  background: #adc3e0;
+}
+
+ul{
+  font-family: Cousine; font-size: 85%; margin-left: auto; margin-right: auto; width: 50%;
+  border: 1px groove rgb(255, 214, 80); background-color: rgb(255, 237, 177);
+  border-radius: 5px
+}
+
+li{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.hidden { display: none;}
+
+button{
+  font-family: 'Cousine';
+  font-weight: bold;
+  color: #5a5a5a;
+  background-color: #9dbfee;
+  border: none;
+  border-radius: 5px;
+  border-right: 2px solid rgba(165, 165, 165, 0.5);
+  border-top: 1px solid rgba(138, 138, 138, 0.2);
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+button:focus{
+  opacity: 1;
+}
+
+button.clear:hover{
+  opacity: 1;
+}
+
+button.clear:focus{
+  border-right: 2px solid rgba(131, 88, 88);
+  border-top: 1px solid rgba(163, 114, 114);
+}
+
+#notation {
+  max-width: 75%;
+  overflow-y: scroll;
+  padding-left: 33%;
+  padding-right: 100px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#piano button{
+  font-family: Cousine;
+  font-size: 11px;
+  height: 16px;
+  border: 1px solid #7E7E7E;
+  border-radius: 3px;
+  display: block;
+  text-align: left;
+}
+
+#piano button:hover{
+  border: 2px solid rgb(211, 88, 88);
+}
+
+#whiteKey button {
+  background-color: white;
+  color: black;
+  width: 100px;
+}
+
+#blackKey button {
+  background-color: black;
+  color: white;
+  width: 50px;
+}
+
+#container {
+  position: relative;
+  /* height: 80px; */
+  margin-bottom: 100px;
+  /* border: 1px solid rgb(91, 0, 165);
+  border-radius: 15px; */
+  border: none;
+  /* overflow: hidden; */
+}
+
+#imagecontainer {
+  position: absolute;
+  top: 500px;
+  right: 100px;
+  left: 600px;
+  overflow: hidden;
+}
+
+.note {
+  height: 80px;
+  width: 80px;
+  background: rgb(255, 181, 97);
+  display: inline-block;
+  border-right: 2px solid rgb(156, 156, 156);
+  border-top: 1px solid rgb(170, 170, 170);
+  border-radius: 15px;
+}
+
+.note span {
+  opacity: 0.5;
+  font-size: 12px;
+  padding: 8px;
+}
+
+.note:active{
+  background: rgb(255, 145, 72);
+}
+
+.note:nth-child(5n){
+  background: #9492d5;
+}
+
+.note:nth-child(5n):active{
+  background: #8381bd;
+}
+
+.note:nth-child(5n+1){
+  background: #c1e5f0;
+}
+
+.note:nth-child(5n+1):active{
+  background: #a1cfdf;
+}
+
+.note:nth-child(5n+2){
+  background: #75bea0;
+}
+
+.note:nth-child(5n+2):active{
+  background: #69a88f;
+}
+
+.note:nth-child(5n+3){
+  background: #f3b42c;
+}
+
+.note:nth-child(5n+3):active{
+  background: #e2a41d;
+}
+
+.note:nth-child(5n+4){
+  background: #e66e88;
+}
+
+.note:nth-child(5n+4):active{
+  background: #ce627a;
+}
+
+.slidecontainer{
+  margin-bottom: 20px;
+}
+
+.slidecontainer span{
+  width: 100px;
+  display: inline-block; 
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 200px; /* Full-width */
+  height: 18px; /* Specified height */
+  border-radius: 5px;
+  background: #a8b6ca; /* background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 18px; /* Set a specific slider handle width */
+  height: 18px; /* Slider handle height */
+  border-radius: 18px;
+  border-right: 1px solid rgb(71, 72, 151);
+  border-top: 1px solid rgb(71, 72, 151);
+  background: #66518a; /* background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-webkit-slider-thumb:active{
+  background: #671ca5;
+}
+
+#invalid{
+  color:white;
+  background:rgb(187, 11, 11);
+  max-width: 250px;
+  border: 2px solid;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+}
+ul a{
+  text-decoration: none;
+  color: rgb(39, 107, 96);
+}
+
+ul a:hover{
+  color: rgb(49, 126, 113);
+  text-shadow: 2px 1px 3px rgba(88, 90, 189, 0.644);
+}
+
+
+#begin{
+  background-color: rgb(255, 237, 177);
+  opacity: 1;
+  transition: background-color .3s;
+}
+
+#begin:hover{
+  background-color: rgb(255, 214, 80);
+}
