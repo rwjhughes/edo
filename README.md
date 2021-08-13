@@ -1,5 +1,7 @@
 ## Getting setup
 
+clone repo: `git clone git@github.com:rwjhughes/edo.git`
+
 We used `node 14.15.*` and `npm 7.20.*`
 
 install packages: `npm install`
