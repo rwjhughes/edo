@@ -145,6 +145,8 @@ const MidiSlider = ({ label, displayValue, input, setInput, midiInput, changePar
   </div>
 }
 
+const f0Exp = input => Math.exp(input * 0.00049517)
+const f0InvExp = input => Math.log(input) / 0.00049517
 
 const Home = () => {
   const isTouchDevice = typeof window !== 'undefined' && 'ontouchstart' in window
@@ -273,7 +275,7 @@ const Home = () => {
   }, [notes, audioDevices])
 
   return <div>
-    <div class="deeper">
+    <div className="deeper">
     <title>EDO SYNTH</title>
       <h1>EDO SYNTH [beta]</h1>
       <h2><a href="index.html" title="Get me out of here!">Richard Hughes</a></h2>
@@ -298,16 +300,16 @@ const Home = () => {
             placeholder="e.g 110" 
             size="10"
             required
-            value={f0} 
+            value={Math.round(f0)} 
             onChange={e => setF0(Number(e.target.value))}
           />
-          <input 
-            type="range" 
-            min="1" 
-            max="1000" 
-            value={f0} 
-            className="slider" 
-            onChange={e => setF0(Number(e.target.value))}
+          <input
+            type="range"
+            min="1"
+            max="20000"
+            value={f0InvExp(f0)}
+            className="slider"
+            onChange={e => setF0(f0Exp(Number(e.target.value)))}
           />
 
           <span>divisions</span>  
