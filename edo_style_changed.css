@@ -86,28 +86,115 @@ input[type="text"] {
   font-family: 'Cousine';
 }
 
-.fundHeader{
-  position: absolute;
+form{
+  position: relative;
   left: 20px;
 }
-
-.top{
-  flex-direction: row-reverse;
+form span{
+  font-size: 90%;
 }
-
-.header{
-  font-size: 150%;
-}
-.fundamental{
+form input{
   display:grid;
   margin-bottom: 5px;
   border: none;
   background:rgba(255, 207, 50, 0.425);
   border-radius: 5px;
   outline: none !important;
-  position: relative;
-  font-size: 150%;
 }
+
+.fundamental{
+  position:absolute;
+  top:8vh;
+  left:23%;
+  font-size: 2em;
+  height:auto;
+  width:auto;
+  background-color: beige;
+  border:solid 1px black;
+  }
+
+  .divisions{
+    position:absolute;
+    top:8vh;
+    left:66%;
+    font-size: 2em;
+    height:auto;
+    width:auto;
+    background-color: beige;
+    border:solid 1px black;
+    }
+
+/*side sliders*/
+
+  .sideslider1{
+    position:absolute;
+    top:15vh;
+    width:10vw;
+    height:12vh;
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotateZ(90deg);
+    position:relative;
+    }
+
+    .verticalslider {
+      -webkit-appearance: none;  /* Override default CSS styles */
+      appearance: none;
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+      width:30vh;
+      background-color: beige;
+      border: solid 1px black;
+      top:20%;
+      z-index: 50;
+      }
+      
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; /* Override default look */
+        appearance: none;
+        width: 18px; /* Set a specific slider handle width */
+        height: 80px; /* Slider handle height */
+        background: brown; /* background */
+        cursor: pointer; /* Cursor on hover */
+        border: solid 1px black;
+      }
+      
+      .sidesliderglyph{
+      position:absolute;
+      width:3vw;
+      height:3vw;
+      background-color: cyan;
+      border: solid 2px black;
+      border-radius: 50%;
+      top:0;
+      right:5%;
+      }
+      
+      .sideslider2{
+      position:absolute;
+      top:40vh;
+      left:0;
+      width:10vw;
+      height:12vh;
+      
+      -webkit-transform-origin: 50% 50%;
+      -moz-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+      -o-transform-origin: 50% 50%;
+      transform-origin: 50% 50%;
+      -webkit-transform: rotate(90deg);
+      -moz-transform: rotate(90deg);
+      -ms-transform: rotate(90deg);
+      -o-transform: rotate(90deg);
+      transform: rotateZ(90deg);
+      position:relative;
+      }
 
 span{
   font-family: Cousine;
@@ -172,13 +259,12 @@ button.clear:focus{
 
 #container {
   position: relative;
-  margin-left: 200px;
   /* height: 80px; */
-  /* margin-bottom: 100px; */
+  margin-bottom: 100px;
   /* border: 1px solid rgb(91, 0, 165);
   border-radius: 15px; */
   border: none;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .note {
@@ -241,13 +327,9 @@ button.clear:focus{
   background: #ce627a;
 }
 
-.field{
-  margin: auto;
-  margin-top: 0;
-}
-
 .slidecontainer{
-  margin: auto;
+  margin-bottom: 20px;
+  bottom:0;
 }
 
 .slidecontainer span{
@@ -255,16 +337,67 @@ button.clear:focus{
   display: inline-block; 
 }
 
+/*lower sliders*/
+
+.lowersliders{
+  position: relative;
+  width: 80vw; 
+  height: 80vh;
+  left:15vw;
+  bottom:0;
+  }
+  
+  .lowerslidertitle{
+  position:relative;
+  top:0;
+  width:100%;
+  height:5vh;
+  color:black;
+  font-size: 2vh;
+  text-align: center;
+  background-color: beige;
+  }
+  
+  .effect{
+  position:relative;
+  display:table-cell;
+  width:100vw;
+  height:10vh;
+  padding-bottom: 10px;
+  background-color: beige;
+  }
+  
+  .effectinfo{
+    position:absolute;
+    top:0;
+    height:50%;
+    width:100%;
+    background: none;
+  }
+  
+  .effectlogo{
+    position:absolute;
+    width:20%;
+    height:0;
+    padding-bottom: 20%;
+    right:0;
+    top:0;
+    background-color: cyan;
+    border-radius: 50%;
+    border: solid 2px black;
+  }
+
 /* The slider itself */
 .slider {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
-  width: 200px; /* Full-width */
-  height: 18px; /* Specified height */
-  border-radius: 5px;
-  background: #a8b6ca; /* background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  position: absolute;
+  top:50%;
+  width: 75%; /* Full-width */
+  height: 8px; /* Specified height */
+  background: black; /* background */
+  outline: solid 2px black; /* Remove outline */
+  opacity: 1; /* Set transparency (for mouse-over effects on hover) */
   -webkit-transition: .2s; /* 0.2 seconds transition on hover */
   transition: opacity .2s;
 }
@@ -310,113 +443,28 @@ ul a:hover{
   text-shadow: 2px 1px 3px rgba(88, 90, 189, 0.644);
 }
 
-.slider1{
-  -webkit-appearance: none;  /* Override default CSS styles */
-  appearance: none;
-  width: 200px; /* Full-width */
-  height: 24px; /* Specified height */
-  border-radius: 5px;
-  background: #a8b6ca; /* background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-  transition: opacity .2s;
-  margin-bottom: 30px;
-  margin-top: 5px;
-  }
-
-  /* Mouse-over effects */
-.slider1:hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
-
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider1::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-  width: 24px; /* Set a specific slider handle width */
-  height: 36px; /* Slider handle height */
-  border-radius: 24px;
-  border-right: 2px solid rgb(48, 49, 151);
-  border-top: 2px solid rgb(48, 49, 151);
-  background: #66518a; /* background */
-  cursor: pointer; /* Cursor on hover */
-}
-
-.slider1::-webkit-slider-thumb:active{
-  background: #671ca5;
-}
-
 /* tooltip */
+
+
 .tooltip {
   position: relative;
+  border-bottom: 1px dotted black;
 }
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 200px;
-  background-color: rgba(87, 48, 151, 0.842);
-  border-right: 2px solid rgb(48, 49, 151);
-  border-top: 2px solid rgb(48, 49, 151);
+  width: 120px;
+  background-color: black;
   color: #fff;
+  text-align: center;
   border-radius: 6px;
-  padding: 5px;
-  font-size: 90%;
+  padding: 5px 0;
+
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
-  text-align: left;
-}
-
-.tooltiptext{
-  opacity: 0;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  opacity: 1;
-  transition: opacity .5s;
-}
-
-#record {
-  background-color: pink; 
-  border-width: medium;
-  border-color: black;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  max-width: 50%;
-  max-height: 15%;
-  border-radius: 50%;
-  left: 40%;
-  position: relative;
-}
-#stopRecord {
-background-color: blue;
-border-width: medium;
-border-color: black;
-color: white;
-padding: 10px;
-text-align: center;
-text-decoration: none;
-display: inline-block;
-font-size: 16px;
-margin: 4px 2px;
-cursor: pointer;
-max-width: 50%;
-max-height: 15%;
-/* border-radius: 50%; */
-left: 40%;
-position: relative;
-}
-
-#audio {
-  left: 100px;
-  right: 100px;
-  position: relative;
 }

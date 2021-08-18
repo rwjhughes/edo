@@ -1,32 +1,18 @@
 import { css, Global, keyframes } from '@emotion/react'
 import styled from '@emotion/styled'
 
-export const SlideshowContainer = styled.div`
-  position: relative;
-`
-
-export const SlideshowImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: ${props => props.visible ? 1 : 0};
-  transition: opacity 12s;
-  width: 100%;
-`
-
 export const FlexRow = styled.div`
   display: flex;
   flex-direction: row;
-  padding-bottom: 120px;
+  padding-bottom: 200px;
 `
 
 export const FlexGrow = styled.div`
   text-align: right;
   flex-grow: 1;
   padding: 20px;
-  max-width: 66%;
+  // max-width: 66%;
 `
-
 
 
 // export const globalStyles = (

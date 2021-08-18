@@ -9,10 +9,7 @@ const keyboardCodes = ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6
 
 const makeSynth = () => {
   //TONE.JS SYNTH//
-  // const actx  = Tone.context;
-  // const dest  = actx.createMediaStreamDestination();
-  // const recorder = new MediaRecorder(dest.stream);
-  const recorder = new Tone.Recorder();
+
   //effects chain
   const inmix = new Tone.Gain(0.8);
   const gain = new Tone.Gain(0.8);
@@ -33,7 +30,6 @@ const makeSynth = () => {
     delay.connect(lowpass);
     lowpass.connect(gain);
     gain.toDestination();
-    gain.connect(recorder);
 
   //synth
   const synth = new Tone.FMSynth({
@@ -63,14 +59,12 @@ const makeSynth = () => {
     delay,
     reverb,
     gain,
-    recorder,
   }
 }
 
 const parameters = {
   attack: {
     label: "attack (s)",
-    definition: "attack is the time taken for the note to fade in.",
     mapping: input => (10 * Math.exp(input * 0.0206) - 10) / 6.342, //scaling from 127
     round: false,
     device: "synth",
@@ -81,7 +75,6 @@ const parameters = {
   },
   release: {
     label: "release (s)",
-    definition: "release is the time taken for the note to fade out.",
     mapping: input => (10 * Math.exp(input * 0.0206) - 10) / 3.9635,
     round: false,
     device: "synth",
@@ -92,7 +85,6 @@ const parameters = {
   },
   modulation: {
     label: "modulation",
-    definition: "modulation is the multiplication of one oscillator on the oscillator of your choice. The more modulation creates a noisier and distorted timbre.",
     mapping: input => (10 * Math.exp(input * 0.0206) - 10) * 7.884,
     round: true,
     device: "synth",
@@ -100,7 +92,6 @@ const parameters = {
   },
   reverb: {
     label: "reverb",
-    definition: "reverb is the effect of having reflections of the sound, it adds of space and depth.",
     mapping: input => (input / 127),
     round: false,
     device: "reverb",
@@ -108,7 +99,6 @@ const parameters = {
   },
   feedback: {
     label: "feedback",
-    definition: "feedback is one of two delay effects. the more feedback the louder and long lasting the delay will sound.",
     mapping: input => input / 158,
     round: false,
     device: "delay",
@@ -118,7 +108,6 @@ const parameters = {
   },
   time: {
     label: "time (s)",
-    definition: "time is one of two delay effects. The sound is replayed after the time chosen.",
     mapping: input => (10 * Math.exp(input * 0.0206) - 10) / 12.68,
     round: false,
     device: "delay",
@@ -126,7 +115,6 @@ const parameters = {
   },
   lowpass: {
     label: "lowpass (Hz)",
-    definition: "lowpass filter cuts out the high frequencies. The frequencies above the value set are cut off.",
     mapping: input => (Math.exp(input * 0.038205) - 1) * 157.32 +20,
     round: true,
     device: "lowpass",
@@ -134,7 +122,6 @@ const parameters = {
   },
   gain: {
     label: "gain",
-    definition: "gain is the volume.",
     mapping: input => input / 127,
     round: false,
     device: "gain",
@@ -142,12 +129,9 @@ const parameters = {
   },
 }
 
-const MidiSlider = ({ label, definition, displayValue, input, setInput, midiInput, changeParameter }) => {
-  return <div>
-    <div className="tooltip">
-      <p>{label}</p>
-      <span className="tooltiptext">{definition}</span>
-    </div>
+const MidiSlider = ({ label, displayValue, input, setInput, midiInput, changeParameter }) => {
+  return <div className="effect">
+    <p class="effectinfo">{label}</p><div class="effectlogo"></div>
     <span>{displayValue}</span>
     {/* <input type="number" id="attch" class="midich" /> */}
     <button className="midimap" onClick={changeParameter}>{midiInput ? (midiInput === "set" ? "map" : `${midiInput}`) : `map`}</button>
@@ -155,8 +139,8 @@ const MidiSlider = ({ label, definition, displayValue, input, setInput, midiInpu
   </div>
 }
 
-const f0Exp = input => Math.exp(input * 0.00049517438)
-const f0InvExp = input => Math.log(input) / 0.00049517438
+const f0Exp = input => Math.exp(input * 0.000495175)
+const f0InvExp = input => Math.log(input) / 0.000495175
 
 const Home = () => {
   const isTouchDevice = typeof window !== 'undefined' && 'ontouchstart' in window
@@ -195,27 +179,6 @@ const Home = () => {
       }
     }
   }
-
-    // record.onclick = e => {
-    //   console.log('record')
-    //   record.disabled = true;
-    //   record.style.backgroundColor = "red"
-    //   stopRecord.disabled=false;
-    //   // audioChunks = [];
-    //   recorder.start();
-    // }
-    // stopRecord.onclick = e => {
-    //   console.log("stop")
-    //   record.disabled = false;
-    //   stop.disabled=true;
-    //   record.style.backgroundColor = "pink"
-    //   recorder.stop();
-    //   const url = URL.createObjectURL(recording);
-    //   const anchor = document.createElement("audio");
-    //   anchor.download = "recording.webm";
-    //   anchor.href = url;
-    //   anchor.click();
-    // }
 
   const onDeviceInput = ({ input, value }) => {
     if (changingParameter) {
@@ -294,35 +257,22 @@ const Home = () => {
   }, [notes, audioDevices])
 
   return <div>
-    <div className="deeper">
-    <title>EDO SYNTH</title>
+    <div>
+      <title>EDO SYNTH</title>
       <h1>EDO SYNTH [beta]</h1>
-      <h2><a href="https://richardhughes.ie" title="Get me out of here!">Richard Hughes</a></h2>
+      <h2><a href="https://richardhughes.ie" target="_blank" title="Get me out of here!">Richard Hughes</a></h2>
     </div>
     <ul>
       <li>Generate a microtonal synth by entering in the starting frequency and the amount of ocatve divisions.</li>
-      <li>You can MIDI map your own deivce to the sliders and the map will be stored locally.</li>
-      <li>The keys are assigned to your computer keyboard, from top left to bottom right.</li>
     </ul>
     <ul id="acknowledge">
       Thanks to <a href="https://rory.ie" target="_blank">Rory Hughes</a> for help with coding<br/>
     </ul>
 
-    <p>
-      <button id="record"></button>
-      <button id="stopRecord" disabled>Stop</button>
-    </p>
-
-    <p>
-      <audio id="audio"></audio>
-    </p>
-
-    <FlexRow>
-          <div className="fundHeader">
-            <div className="tooltip">
-              <span className="header"><i> f</i><sub>0</sub> (Hz)</span>
-              <span className="tooltiptext"><i>f</i><sub>0</sub> is the lowest note of the scale.</span>
-            </div>
+    {/* <FlexRow> */}
+      <div>
+        <form name="edo-cal">
+          <span className="tooltiptext"><i> f</i><sub>0</sub> (Hz)</span>
           <input 
             name="f0" 
             id="f0" 
@@ -336,24 +286,21 @@ const Home = () => {
           />
           <input
             type="range"
-            min="6050"
+            min="6000"
             max="20000"
             value={f0InvExp(f0)}
-            className="slider1"
+            className="sideslider1 tooltip"
             onChange={e => setF0(f0Exp(Number(e.target.value)))}
           />
-        <div>
-          <div className="tooltip">
-            <span className="header">divisions</span>  
-            <span className="tooltiptext">divisions is how many times the octave will be divided equally.</span>
-          </div>
+
+          <span className="tooltiptext">divisions</span>  
           <input 
             name="divisions" 
             type="text" 
             placeholder="max: 24" 
             size="10"
             required
-            className="fundamental"
+            className="divisions"
             value={divisions} 
             onChange={e => setDivisions(Number(e.target.value))}
           />
@@ -362,39 +309,15 @@ const Home = () => {
             min="1" 
             max="24" 
             value={divisions} 
-            className="slider1" 
+            className="sideslider2 tooltip"
             onChange={e => setDivisions(Number(e.target.value))}
           />
-        </div>
+
           {invalidNumbers && <p id="invalid">enter a valid number in both boxes</p>}
-          </div>
-     {/* </FlexRow>
-      <FlexRow> */}
-      <div id='container'>
-          {layoutMap && notes.map((note, i) => {
-            return <div
-              key={note}
-              className="note"
-              onMouseDown={!isTouchDevice ? () => audioDevices.synth.triggerAttack(note) : undefined}
-              onTouchStart={isTouchDevice ? () => audioDevices.synth.triggerAttack(note) : undefined}
-              onMouseUp={!isTouchDevice ? () => audioDevices.synth.triggerRelease() : undefined}
-              onTouchEnd={isTouchDevice ? () => audioDevices.synth.triggerAttack() : undefined}
-              onMouseLeave={!isTouchDevice ? () => audioDevices.synth.triggerRelease() : undefined}
-            >
-              <span>
-                {layoutMap.get(keyboardCodes[i])}
-                {/* {note.toFixed(3)} */}
-              </span>
-            </div>
-          })}
-        </div>
-      </FlexRow>
-      <FlexRow>
+        </form><br/>
+
         <div className='field'>
-          <div className="tooltip">
-            <span>oscillator</span>
-            <span className="tooltiptext">oscillator is the type of waveform which have distinct timbres.</span>
-          </div>
+          <span>oscillator</span>
           <select id='oscillator-type' onChange={e => audioDevices.synth.oscillator.type = e.target.value}>
             <option value='sine'>sine</option>
             <option value='triangle'>triangle</option>
@@ -403,9 +326,9 @@ const Home = () => {
           </select>
         </div>
         
-        <div className="slidecontainer">
+        <div className="lowersliders">
           {Object.keys(parameters).map(name => {
-            const { label, definition, mapping, round, device, assign } = parameters[name]
+            const { label, mapping, round, device, assign } = parameters[name]
 
             const setInput = (input) => {
               setParamValues({
@@ -423,7 +346,6 @@ const Home = () => {
             return <MidiSlider
               key={name}
               label={label}
-              definition={definition}
               displayValue={displayValue}
               input={input}
               setInput={setInput}
@@ -434,7 +356,29 @@ const Home = () => {
           <br/>
           <button onClick={() => { setMidiInputMap([{}, {}]); localStorage.removeItem("midiMap") }} className="clear">clear midi map</button>
         </div>
-    </FlexRow>
+      </div>
+      {/* <FlexGrow> */}
+          <div id='container'>
+          {layoutMap && notes.map((note, i) => {
+            return <div
+              key={note}
+              className="note"
+              onMouseDown={!isTouchDevice ? () => audioDevices.synth.triggerAttack(note) : undefined}
+              onTouchStart={isTouchDevice ? () => audioDevices.synth.triggerAttack(note) : undefined}
+              onMouseUp={!isTouchDevice ? () => audioDevices.synth.triggerRelease() : undefined}
+              onTouchEnd={isTouchDevice ? () => audioDevices.synth.triggerAttack() : undefined}
+              onMouseLeave={!isTouchDevice ? () => audioDevices.synth.triggerRelease() : undefined}
+            >
+              <span>
+                {layoutMap.get(keyboardCodes[i])}
+                {/* {note.toFixed(3)} */}
+              </span>
+            </div>
+          })}
+
+        </div>
+      {/* </FlexGrow> */}
+    {/* </FlexRow> */}
 
     <footer>&copy; Richard Hughes 2021</footer>
 
