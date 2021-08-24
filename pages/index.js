@@ -2,6 +2,16 @@ import { SlideshowContainer, SlideshowImage, FlexRow, FlexGrow } from '../shared
 import { useEffect, useState, useRef } from 'react'
 import * as Tone from 'tone'
 
+import { Mp3MediaRecorder } from 'mp3-mediarecorder'
+import Mp3RecorderWorker from 'workerize-loader!../lib/worker'
+
+const worker = Mp3RecorderWorker()
+
+window.MediaRecorder = (stream) => new Mp3MediaRecorder(
+  mediaStream, // MediaStream instance
+  { worker: Mp3RecorderWorker() }
+)
+
 // const keyboard = "qwertyuiop[]asdfghjkl;'zxcvbnm,./"
 
 const keyboardCodes = ["Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9", "Digit0", "Minus", "Equal", "KeyQ","KeyW","KeyE","KeyR","KeyT","KeyY","KeyU","KeyI","KeyO","KeyP","BracketLeft","BracketRight","KeyA","KeyS","KeyD","KeyF","KeyG","KeyH","KeyJ","KeyK","KeyL","Semicolon","Quote","KeyZ","KeyX","KeyC","KeyV","KeyB","KeyN","KeyM","Comma","Period","Slash"]
@@ -100,7 +110,7 @@ const parameters = {
   },
   reverb: {
     label: "reverb",
-    definition: "reverb is the effect of having reflections of the sound, it adds of space and depth.",
+    definition: "reverb is the effect of having reflections of the sound, it adds a sense of space and depth.",
     mapping: input => (input / 127),
     round: false,
     device: "reverb",
@@ -165,6 +175,8 @@ const Home = () => {
   const [f0, setF0] = useState(Math.random()*500)
   const [divisions, setDivisions] = useState(Math.round(Math.random()*23+1))
 
+  const [recordingURL, setRecordingURL] = useState()
+
   const [audioDevices, setAudioDevices] = useState(null)
   const [paramValues, setParamValues] = useState({
     attack: Math.random()*60,
@@ -196,16 +208,33 @@ const Home = () => {
     }
   }
 
-    // record.onclick = e => {
-    //   console.log('record')
-    //   record.disabled = true;
-    //   record.style.backgroundColor = "red"
-    //   stopRecord.disabled=false;
-    //   // audioChunks = [];
-    //   recorder.start();
-    // }
+  const startRecording = () => {
+    console.log('record')
+    // record.disabled = true;
+    // record.style.backgroundColor = "red"
+    // stopRecord.disabled=false;
+    // audioChunks = [];
+    audioDevices.recorder.start()
+  }
+
+  const stopRecording = async () => {
+    console.log("stop")
+    const recording = await audioDevices.recorder.stop()
+    const url = URL.createObjectURL(recording)
+
+    // Returns the current state of the MediaRecorder object (inactive, recording, or paused.)
+    // audioDevices.recorder.state === ''
+
+    setRecordingURL(url)
+
+    // const anchor = document.createElement("audio");
+    // anchor.download = "recording.webm";
+    // anchor.href = url;
+    // anchor.click();
+  }
+
+
     // stopRecord.onclick = e => {
-    //   console.log("stop")
     //   record.disabled = false;
     //   stop.disabled=true;
     //   record.style.backgroundColor = "pink"
@@ -309,13 +338,19 @@ const Home = () => {
     </ul>
 
     <p>
-      <button id="record"></button>
-      <button id="stopRecord" disabled>Stop</button>
+      {audioDevices?.recorder?.state}
+      <br />
+      <button id="record" onClick={startRecording}></button>
+      <button id="stopRecord"
+        // disabled={!audioDevices || audioDevices.recorder.state !== "recording"}
+        onClick={stopRecording}>Stop</button>
     </p>
 
-    <p>
-      <audio id="audio"></audio>
-    </p>
+    {recordingURL && <p>
+      <audio id="audio" controls>
+        <source src={recordingURL} type="audio/webm" />
+      </audio>
+    </p>}
 
     <FlexRow>
           <div className="fundHeader">
