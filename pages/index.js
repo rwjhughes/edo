@@ -1,16 +1,18 @@
-import { SlideshowContainer, SlideshowImage, FlexRow, FlexGrow } from '../shared/styles'
-import { useEffect, useState, useRef } from 'react'
+import {
+  FlexGrow,
+  FlexRow,
+  FlexRowWrapped,
+  SliderWrap,
+  Slider,
+  NoteGap,
+  NoteIndent,
+  DesktopNotesGap,
+  AudioPlayer,
+  Note
+} from '../shared/styles'
+import { useEffect, useState, useRef, Fragment } from 'react'
 import * as Tone from 'tone'
 
-import { Mp3MediaRecorder } from 'mp3-mediarecorder'
-import Mp3RecorderWorker from 'workerize-loader!../lib/worker'
-
-const worker = Mp3RecorderWorker()
-
-window.MediaRecorder = (stream) => new Mp3MediaRecorder(
-  mediaStream, // MediaStream instance
-  { worker: Mp3RecorderWorker() }
-)
 
 // const keyboard = "qwertyuiop[]asdfghjkl;'zxcvbnm,./"
 
@@ -22,7 +24,7 @@ const makeSynth = () => {
   // const actx  = Tone.context;
   // const dest  = actx.createMediaStreamDestination();
   // const recorder = new MediaRecorder(dest.stream);
-  const recorder = new Tone.Recorder();
+  const recorder = new Tone.Recorder({ mimeType: "audio/webm; codecs=opus" });
   //effects chain
   const inmix = new Tone.Gain(0.8);
   const gain = new Tone.Gain(0.8);
@@ -153,16 +155,26 @@ const parameters = {
 }
 
 const MidiSlider = ({ label, definition, displayValue, input, setInput, midiInput, changeParameter }) => {
-  return <div>
-    <div className="tooltip">
-      <p>{label}</p>
-      <span className="tooltiptext">{definition}</span>
-    </div>
-    <span>{displayValue}</span>
-    {/* <input type="number" id="attch" class="midich" /> */}
-    <button className="midimap" onClick={changeParameter}>{midiInput ? (midiInput === "set" ? "map" : `${midiInput}`) : `map`}</button>
-    <input type="range" min="0" max="127" value={input} className="slider" onChange={e => setInput(Number(e.target.value))} />
-  </div>
+  return <SliderWrap  p="10px 0">
+    <FlexRow alignItems="baseline">
+      <FlexGrow>
+        <span className="tooltip">
+          {label}
+          <span className="tooltiptext">{definition}</span>
+        </span>
+        
+      </FlexGrow>
+
+      <div>
+        <span>{displayValue}</span>
+        {/* <input type="number" id="attch" class="midich" /> */}
+        <button className="midimap" onClick={changeParameter}>{midiInput ? (midiInput === "set" ? "map" : `${midiInput}`) : `map`}</button>
+
+      </div>
+    </FlexRow>
+
+    <Slider type="range" min="0" max="127" value={input} onChange={e => setInput(Number(e.target.value))} />
+  </SliderWrap>
 }
 
 const f0Exp = input => Math.exp(input * 0.00049517438)
@@ -191,6 +203,7 @@ const Home = () => {
   const [changingParameter, setChangingParameter] = useState()
   const [midiInputMap, setMidiInputMap] = useState([{}, {}])
   const [layoutMap, setLayoutMap] = useState()
+  const [currentNote, setCurrentNote] = useState()
 
   const invalidNumbers = isNaN(f0) || isNaN(divisions) || divisions < 1 || divisions >24 || f0 < 1
 
@@ -208,12 +221,9 @@ const Home = () => {
     }
   }
 
-  const startRecording = () => {
+  const startRecording = async () => {
     console.log('record')
-    // record.disabled = true;
-    // record.style.backgroundColor = "red"
-    // stopRecord.disabled=false;
-    // audioChunks = [];
+    setRecordingURL(null)
     audioDevices.recorder.start()
   }
 
@@ -221,30 +231,8 @@ const Home = () => {
     console.log("stop")
     const recording = await audioDevices.recorder.stop()
     const url = URL.createObjectURL(recording)
-
-    // Returns the current state of the MediaRecorder object (inactive, recording, or paused.)
-    // audioDevices.recorder.state === ''
-
     setRecordingURL(url)
-
-    // const anchor = document.createElement("audio");
-    // anchor.download = "recording.webm";
-    // anchor.href = url;
-    // anchor.click();
   }
-
-
-    // stopRecord.onclick = e => {
-    //   record.disabled = false;
-    //   stop.disabled=true;
-    //   record.style.backgroundColor = "pink"
-    //   recorder.stop();
-    //   const url = URL.createObjectURL(recording);
-    //   const anchor = document.createElement("audio");
-    //   anchor.download = "recording.webm";
-    //   anchor.href = url;
-    //   anchor.click();
-    // }
 
   const onDeviceInput = ({ input, value }) => {
     if (changingParameter) {
@@ -310,9 +298,13 @@ const Home = () => {
       const noteIndex = keyboardCodes.indexOf(e.code)
       if (noteIndex !== -1 && noteIndex < notes.length) {
         audioDevices.synth.triggerAttack(notes[noteIndex])
+        setCurrentNote(noteIndex)
       }
     }
-    const keyUp = (e) => audioDevices.synth.triggerRelease()
+    const keyUp = (e) => {
+      audioDevices.synth.triggerRelease()
+      setCurrentNote(undefined)
+    }
 
     document.addEventListener("keydown", keyInput)
     document.addEventListener("keyup", keyUp)
@@ -324,7 +316,7 @@ const Home = () => {
 
   return <div>
     <div className="deeper">
-    <title>EDO SYNTH</title>
+      <title>EDO SYNTH</title>
       <h1>EDO SYNTH [beta]</h1>
       <h2><a href="https://richardhughes.ie" title="Get me out of here!">Richard Hughes</a></h2>
     </div>
@@ -336,80 +328,92 @@ const Home = () => {
     <ul id="acknowledge">
       Thanks to <a href="https://rory.ie" target="_blank">Rory Hughes</a> for help with coding<br/>
     </ul>
-
+    
     <p>
-      {audioDevices?.recorder?.state}
+      {/* {audioDevices?.recorder?.state} */}
       <br />
-      <button id="record" onClick={startRecording}></button>
+      <button id="record" onClick={startRecording}
+        disabled={!audioDevices || audioDevices.recorder.state === "started"}
+      ></button>
       <button id="stopRecord"
-        // disabled={!audioDevices || audioDevices.recorder.state !== "recording"}
+        disabled={!audioDevices || audioDevices.recorder.state === "stopped"}
         onClick={stopRecording}>Stop</button>
-    </p>
 
+      {recordingURL && <a
+        id="downloadButton"
+        href={recordingURL}
+        download={new Date().toLocaleString() + ".ogg"}
+      >
+        Download
+      </a>}
+    </p>
     {recordingURL && <p>
-      <audio id="audio" controls>
+      <AudioPlayer controls>
         <source src={recordingURL} type="audio/webm" />
-      </audio>
+      </AudioPlayer>
     </p>}
 
-    <FlexRow>
-          <div className="fundHeader">
-            <div className="tooltip">
-              <span className="header"><i> f</i><sub>0</sub> (Hz)</span>
-              <span className="tooltiptext"><i>f</i><sub>0</sub> is the lowest note of the scale.</span>
-            </div>
-          <input 
-            name="f0" 
-            id="f0" 
-            type="text" 
-            placeholder="e.g 110" 
-            size="10"
-            required
-            className="fundamental"
-            value={f0.toFixed(2)} 
-            onChange={e => setF0(Number(e.target.value))}
-          />
-          <input
-            type="range"
-            min="6050"
-            max="20000"
-            value={f0InvExp(f0)}
-            className="slider1"
-            onChange={e => setF0(f0Exp(Number(e.target.value)))}
-          />
-        <div>
-          <div className="tooltip">
-            <span className="header">divisions</span>  
-            <span className="tooltiptext">divisions is how many times the octave will be divided equally.</span>
-          </div>
-          <input 
-            name="divisions" 
-            type="text" 
-            placeholder="max: 24" 
-            size="10"
-            required
-            className="fundamental"
-            value={divisions} 
-            onChange={e => setDivisions(Number(e.target.value))}
-          />
-          <input 
-            type="range" 
-            min="1" 
-            max="24" 
-            value={divisions} 
-            className="slider1" 
-            onChange={e => setDivisions(Number(e.target.value))}
-          />
+    <FlexRowWrapped p="20px 0" justify="space-between">
+      <SliderWrap>
+        <div className="tooltip slider-header">
+          <span className="header"><i> f</i><sub>0</sub> (Hz)</span>
+          <span className="tooltiptext"><i>f</i><sub>0</sub> is the lowest note of the scale.</span>
         </div>
-          {invalidNumbers && <p id="invalid">enter a valid number in both boxes</p>}
-          </div>
-     {/* </FlexRow>
-      <FlexRow> */}
-      <div id='container'>
-          {layoutMap && notes.map((note, i) => {
-            return <div
-              key={note}
-              className="note"
+        <input 
+          name="f0" 
+          id="f0" 
+          type="text" 
+          placeholder="e.g 110" 
+          size="10"
+          required
+          className="fundamental"
+          value={f0.toFixed(2)} 
+          onChange={e => setF0(Number(e.target.value))}
+        />
+        <Slider
+          big={true}
+          type="range"
+          min="6050"
+          max="20000"
+          value={f0InvExp(f0)}
+          onChange={e => setF0(f0Exp(Number(e.target.value)))}
+        />
+      </SliderWrap>
+
+      <SliderWrap>
+        <div className="tooltip">
+          <span className="header">divisions</span>  
+          <span className="tooltiptext">divisions is how many times the octave will be divided equally.</span>
+        </div>
+        <input 
+          name="divisions" 
+          type="text" 
+          placeholder="max: 24" 
+          size="10"
+          required
+          className="fundamental"
+          value={divisions} 
+          onChange={e => setDivisions(Number(e.target.value))}
+        />
+        <Slider 
+          big={true}
+          type="range" 
+          min="1" 
+          max="24" 
+          value={divisions} 
+          className="slider1" 
+          onChange={e => setDivisions(Number(e.target.value))}
+        />
+      </SliderWrap>
+      {invalidNumbers && <p id="invalid">enter a valid number in both boxes</p>}
+    </FlexRowWrapped>
+
+    <FlexRow justify="center">
+      <FlexRowWrapped p="30px 0" mw="1030px">
+        {layoutMap && notes.map((note, i) => {
+          return <Fragment key={note}>
+            <Note
+              className={currentNote === i && "current"}
               onMouseDown={!isTouchDevice ? () => audioDevices.synth.triggerAttack(note) : undefined}
               onTouchStart={isTouchDevice ? () => audioDevices.synth.triggerAttack(note) : undefined}
               onMouseUp={!isTouchDevice ? () => audioDevices.synth.triggerRelease() : undefined}
@@ -420,56 +424,61 @@ const Home = () => {
                 {layoutMap.get(keyboardCodes[i])}
                 {/* {note.toFixed(3)} */}
               </span>
-            </div>
-          })}
-        </div>
-      </FlexRow>
-      <FlexRow>
-        <div className='field'>
-          <div className="tooltip">
-            <span>oscillator</span>
-            <span className="tooltiptext">oscillator is the type of waveform which have distinct timbres.</span>
-          </div>
-          <select id='oscillator-type' onChange={e => audioDevices.synth.oscillator.type = e.target.value}>
-            <option value='sine'>sine</option>
-            <option value='triangle'>triangle</option>
-            <option value='sawtooth'>sawtooth</option>
-            <option value='square'>square</option>
-          </select>
-        </div>
-        
-        <div className="slidecontainer">
-          {Object.keys(parameters).map(name => {
-            const { label, definition, mapping, round, device, assign } = parameters[name]
-
-            const setInput = (input) => {
-              setParamValues({
-                ...paramValues,
-                [name]: input
-              })
-            }
-            const input = paramValues[name]
-            const scaled = mapping(input)
-            if (audioDevices) {
-              assign(audioDevices[device], scaled)
-            }
-
-            const displayValue = round ? Math.round(scaled) : scaled.toFixed(2)
-            return <MidiSlider
-              key={name}
-              label={label}
-              definition={definition}
-              displayValue={displayValue}
-              input={input}
-              setInput={setInput}
-              midiInput={changingParameter && changingParameter === name ? "set" : midiInputMap[0][name]}
-              changeParameter={() => setChangingParameter(name)}
-            />
-          })}
-          <br/>
-          <button onClick={() => { setMidiInputMap([{}, {}]); localStorage.removeItem("midiMap") }} className="clear">clear midi map</button>
-        </div>
+            </Note>
+            {(i < 24 ? (i + 1) % 12 : (i < 44 ? (i - 1) % 11 : i % 44)) === 0 && <>
+              <NoteGap />
+              <NoteIndent w={`${(i / 10) * 30}px`} />
+            </>}
+          </Fragment>
+        })}
+      </FlexRowWrapped>
     </FlexRow>
+
+    <div className='field'>
+      <div className="tooltip">
+        <span>oscillator</span>
+        <span className="tooltiptext">oscillator is the type of waveform which have distinct timbres.</span>
+      </div>
+      <select id='oscillator-type' onChange={e => audioDevices.synth.oscillator.type = e.target.value}>
+        <option value='sine'>sine</option>
+        <option value='triangle'>triangle</option>
+        <option value='sawtooth'>sawtooth</option>
+        <option value='square'>square</option>
+      </select>
+
+      <button onClick={() => { setMidiInputMap([{}, {}]); localStorage.removeItem("midiMap") }} className="clear midimap">clear midi map</button>
+    </div>
+
+    <FlexRowWrapped justify="space-between">
+      {Object.keys(parameters).map(name => {
+        const { label, definition, mapping, round, device, assign } = parameters[name]
+
+        const setInput = (input) => {
+          setParamValues({
+            ...paramValues,
+            [name]: input
+          })
+        }
+        const input = paramValues[name]
+        const scaled = mapping(input)
+        if (audioDevices) {
+          assign(audioDevices[device], scaled)
+        }
+
+        const displayValue = round ? Math.round(scaled) : scaled.toFixed(2)
+        return <MidiSlider
+          key={name}
+          label={label}
+          definition={definition}
+          displayValue={displayValue}
+          input={input}
+          setInput={setInput}
+          midiInput={changingParameter && changingParameter === name ? "set" : midiInputMap[0][name]}
+          changeParameter={() => setChangingParameter(name)}
+        />
+      })}
+    </FlexRowWrapped>
+    <br/>
 
     <footer>&copy; Richard Hughes 2021</footer>
 
