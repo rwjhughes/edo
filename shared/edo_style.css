@@ -1,8 +1,10 @@
 html, body {
   /* background-color: #CFCFCF; */
   margin: 0;
-  margin-left: 2em;
-  margin-right: 2em;
+}
+
+body {
+  margin: 0 1em;
 }
 
 /* latin */
@@ -86,17 +88,18 @@ input[type="text"] {
   font-family: 'Cousine';
 }
 
-.fundHeader{
-  position: absolute;
-  left: 20px;
-}
 
 .top{
   flex-direction: row-reverse;
 }
 
+.slider-header {
+  height: 30px;
+}
+
 .header{
-  font-size: 150%;
+  font-size: 18px;
+  line-height: 30px;
 }
 .fundamental{
   display:grid;
@@ -143,7 +146,7 @@ li{
 
 .hidden { display: none;}
 
-button{
+button {
   font-family: 'Cousine';
   font-weight: bold;
   color: #5a5a5a;
@@ -153,12 +156,24 @@ button{
   border-right: 2px solid rgba(165, 165, 165, 0.5);
   border-top: 1px solid rgba(138, 138, 138, 0.2);
   cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: default !important;
+}
+
+.midimap {
   opacity: 0.4;
   transition: opacity 0.3s;
 }
 
 button:focus{
   opacity: 1;
+}
+
+button.clear {
+  margin-left: 10px;
 }
 
 button.clear:hover{
@@ -170,76 +185,6 @@ button.clear:focus{
   border-top: 1px solid rgba(163, 114, 114);
 }
 
-#container {
-  position: relative;
-  margin-left: 200px;
-  /* height: 80px; */
-  /* margin-bottom: 100px; */
-  /* border: 1px solid rgb(91, 0, 165);
-  border-radius: 15px; */
-  border: none;
-  overflow: hidden;
-}
-
-.note {
-  height: 80px;
-  width: 80px;
-  background: rgb(255, 181, 97);
-  display: inline-block;
-  border-right: 2px solid rgb(156, 156, 156);
-  border-top: 1px solid rgb(170, 170, 170);
-  border-radius: 15px;
-}
-
-.note span {
-  opacity: 0.5;
-  font-size: 12px;
-  padding: 8px;
-}
-
-.note:active{
-  background: rgb(255, 145, 72);
-}
-
-.note:nth-child(5n){
-  background: #9492d5;
-}
-
-.note:nth-child(5n):active{
-  background: #8381bd;
-}
-
-.note:nth-child(5n+1){
-  background: #c1e5f0;
-}
-
-.note:nth-child(5n+1):active{
-  background: #a1cfdf;
-}
-
-.note:nth-child(5n+2){
-  background: #75bea0;
-}
-
-.note:nth-child(5n+2):active{
-  background: #69a88f;
-}
-
-.note:nth-child(5n+3){
-  background: #f3b42c;
-}
-
-.note:nth-child(5n+3):active{
-  background: #e2a41d;
-}
-
-.note:nth-child(5n+4){
-  background: #e66e88;
-}
-
-.note:nth-child(5n+4):active{
-  background: #ce627a;
-}
 
 .field{
   margin: auto;
@@ -255,41 +200,7 @@ button.clear:focus{
   display: inline-block; 
 }
 
-/* The slider itself */
-.slider {
-  -webkit-appearance: none;  /* Override default CSS styles */
-  appearance: none;
-  width: 200px; /* Full-width */
-  height: 18px; /* Specified height */
-  border-radius: 5px;
-  background: #a8b6ca; /* background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-  transition: opacity .2s;
-}
 
-/* Mouse-over effects */
-.slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
-
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-  width: 18px; /* Set a specific slider handle width */
-  height: 18px; /* Slider handle height */
-  border-radius: 18px;
-  border-right: 1px solid rgb(71, 72, 151);
-  border-top: 1px solid rgb(71, 72, 151);
-  background: #66518a; /* background */
-  cursor: pointer; /* Cursor on hover */
-}
-
-.slider::-webkit-slider-thumb:active{
-  background: #671ca5;
-}
 
 #invalid{
   color:white;
@@ -310,42 +221,6 @@ ul a:hover{
   text-shadow: 2px 1px 3px rgba(88, 90, 189, 0.644);
 }
 
-.slider1{
-  -webkit-appearance: none;  /* Override default CSS styles */
-  appearance: none;
-  width: 200px; /* Full-width */
-  height: 24px; /* Specified height */
-  border-radius: 5px;
-  background: #a8b6ca; /* background */
-  outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-  transition: opacity .2s;
-  margin-bottom: 30px;
-  margin-top: 5px;
-  }
-
-  /* Mouse-over effects */
-.slider1:hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
-
-/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-.slider1::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-  width: 24px; /* Set a specific slider handle width */
-  height: 36px; /* Slider handle height */
-  border-radius: 24px;
-  border-right: 2px solid rgb(48, 49, 151);
-  border-top: 2px solid rgb(48, 49, 151);
-  background: #66518a; /* background */
-  cursor: pointer; /* Cursor on hover */
-}
-
-.slider1::-webkit-slider-thumb:active{
-  background: #671ca5;
-}
 
 /* tooltip */
 .tooltip {
@@ -379,7 +254,7 @@ ul a:hover{
 }
 
 #record {
-  background-color: pink; 
+  background-color: red; 
   border-width: medium;
   border-color: black;
   color: white;
@@ -415,8 +290,21 @@ left: 40%;
 position: relative;
 }
 
-#audio {
-  left: 100px;
-  right: 100px;
+#downloadButton {
+  background-color: blue;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  max-width: 50%;
+  max-height: 15%;
+  /* border-radius: 50%; */
+  left: 40%;
   position: relative;
 }
