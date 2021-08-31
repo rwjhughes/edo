@@ -48,7 +48,7 @@ export const Slider = styled.input`
     width: ${p => p.big ? "24" : "18"}px; /* Set a specific slider handle width */
     height: ${p => p.big ? "36" : "18"}px; /* Slider handle height */
     border-radius: 18px;
-    border-right: ${p => p.big ? "2px" : "1px"} solid rgb(71, 72, 151);
+    border-right: ${p => p.big ? "3px" : "2px"} solid rgb(71, 72, 151);
     border-top: ${p => p.big ? "2px" : "1px"}  solid rgb(71, 72, 151);
     background: #66518a; /* background */
     cursor: pointer; /* Cursor on hover */
@@ -79,23 +79,40 @@ export const AudioPlayer = styled.audio`
 `
 
 export const Note = styled.div`
-  height: 80px;
-  width: 80px;
-  background: rgb(255, 181, 97);
-  display: inline-block;
-  border-right: 2px solid rgb(156, 156, 156);
-  border-top: 1px solid rgb(170, 170, 170);
-  border-radius: 15px;
+height: 90px;
+width: 72px;
+background: rgb(255, 181, 97);
+display: inline-block;
+border-right: 2px solid rgb(156, 156, 156);
+border-top: 1px solid rgb(170, 170, 170);
+border-radius: 1px;
+opacity:0.4;
+
+@keyframes pulser{
+0%{opacity:0.4}
+50%{opacity:0.8}
+100%{opacity:0.4}
+}
 
   span {
     opacity: 0.5;
-    font-size: 12px;
+    font-size: 16px;
     padding: 8px;
+  }
+
+  &:hover{
+    // filter: drop-shadow(0 0 0.75rem crimson);
+    opacity:1;
   }
 
   &:active {
     background: rgb(255, 145, 72);
   }
+
+  &.current{
+    filter: drop-shadow(0 0 0.75rem crimson);
+    opacity:1;
+ }
 
   &:nth-of-type(5n){
     background: #9492d5;

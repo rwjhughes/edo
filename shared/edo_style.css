@@ -42,6 +42,10 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 
+h1{
+  font-size: 250%;
+}
+
 h1 a
 {
 text-decoration: none;
@@ -58,6 +62,7 @@ h2
 font-family: 'Cousine';
 text-decoration:none;
 color:black;
+font-size: 166%;
 }
 h2 a
 {
@@ -67,7 +72,8 @@ color:black;
 }
 h2 a:hover
 {
-  text-shadow: 2px 1px 3px #452ceb;
+  color: #3f226d;
+  text-shadow: 2px 1px 5px #452ceb;
 }
 
 p
@@ -82,6 +88,10 @@ p a
 {
 text-decoration:none;
 color:black;
+}
+
+red{
+  color: rgb(206, 14, 14);
 }
 
 input[type="text"] {
@@ -134,9 +144,21 @@ select:hover{
 }
 
 ul{
-  font-family: Cousine; font-size: 85%; margin-left: auto; margin-right: auto; width: 50%;
+  font-family: Cousine; 
+  font-size: 85%; 
+  margin-left: 0; 
+  margin-right: 0; 
+  width: 50%;
   border: 1px groove rgb(255, 214, 80); background-color: rgb(255, 237, 177);
-  border-radius: 5px
+  border-radius: 5px;
+  margin: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  padding-right: 10px;
+}
+
+#acknowledge{
+  width:40%;
 }
 
 li{
@@ -200,8 +222,6 @@ button.clear:focus{
   display: inline-block; 
 }
 
-
-
 #invalid{
   color:white;
   background:rgb(187, 11, 11);
@@ -254,7 +274,7 @@ ul a:hover{
 }
 
 #record {
-  background-color: red; 
+  background-color: rgb(255, 75, 75); 
   border-width: medium;
   border-color: black;
   color: white;
@@ -263,7 +283,7 @@ ul a:hover{
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 2px 2px;
   cursor: pointer;
   max-width: 50%;
   max-height: 15%;
@@ -271,31 +291,43 @@ ul a:hover{
   left: 40%;
   position: relative;
 }
+
+#record:hover{
+  background-color: rgb(209, 49, 49); 
+}
 #stopRecord {
-background-color: blue;
-border-width: medium;
-border-color: black;
+background-color: rgb(71, 71, 255);
+/* border-width: medium;
+border-color: black; */
+border-right: 2px solid rgb(48, 49, 151);
+border-top: 1px solid rgb(79, 80, 182);
 color: white;
-padding: 10px;
+padding: 8px;
 text-align: center;
 text-decoration: none;
 display: inline-block;
 font-size: 16px;
-margin: 4px 2px;
+margin: 2px 2px;
 cursor: pointer;
 max-width: 50%;
 max-height: 15%;
-/* border-radius: 50%; */
+border-radius: 5px;
 left: 40%;
 position: relative;
 }
 
-#downloadButton {
+#stopRecord:hover{
   background-color: blue;
-  border-width: medium;
-  border-color: black;
+}
+
+#downloadButton {
+  background-color: #8148e4;
+  /* border-width: medium;
+  border-color: black; */
+  border-right: 2px solid rgb(48, 49, 151);
+  border-top: 1px solid rgb(79, 80, 182);
   color: white;
-  padding: 10px;
+  padding: 8px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -304,7 +336,13 @@ position: relative;
   cursor: pointer;
   max-width: 50%;
   max-height: 15%;
-  /* border-radius: 50%; */
+  border-radius: 5px;
   left: 40%;
   position: relative;
+}
+
+#downloadButton:hover{
+  background-color: #6735be;
+  border-right: 2px solid rgb(73, 74, 180);
+  border-top: 1px solid rgb(105, 107, 209);
 }

@@ -104,7 +104,7 @@ const parameters = {
   },
   modulation: {
     label: "modulation",
-    definition: "modulation is the multiplication of one oscillator on the oscillator of your choice. The more modulation creates a noisier and distorted timbre.",
+    definition: "modulation creates a noisier and distorted timbre.",
     mapping: input => (10 * Math.exp(input * 0.0206) - 10) * 7.884,
     round: true,
     device: "synth",
@@ -120,7 +120,7 @@ const parameters = {
   },
   feedback: {
     label: "feedback",
-    definition: "feedback is one of two delay effects. the more feedback the louder and long lasting the delay will sound.",
+    definition: "feedback is one of two delay effects. The more feedback the louder and long lasting the delay will sound.",
     mapping: input => input / 158,
     round: false,
     device: "delay",
@@ -316,18 +316,30 @@ const Home = () => {
 
   return <div>
     <div className="deeper">
-      <title>EDO SYNTH</title>
-      <h1>EDO SYNTH [beta]</h1>
-      <h2><a href="https://richardhughes.ie" title="Get me out of here!">Richard Hughes</a></h2>
+      <title>EDO SYNTH - Richard Hughes</title>
+      <h1>EDO SYNTH</h1>
+      <h2><a href="https://richardhughes.ie" target="_blank" title="Get me out of here!">Richard Hughes</a></h2>
     </div>
+    <FlexRow>
     <ul>
-      <li>Generate a microtonal synth by entering in the starting frequency and the amount of ocatve divisions.</li>
-      <li>You can MIDI map your own deivce to the sliders and the map will be stored locally.</li>
-      <li>The keys are assigned to your computer keyboard, from top left to bottom right.</li>
+      <li>Welcome to <b>EDO SYNTH</b>, an interactive microtonal synthesiser which lets you create your own tuning systems and sounds. Here's an overview of how it works.</li>
+      <li>Two sliders determine the pitches of the synth. <b><i> f</i><sub>0</sub></b> is where the scale starts and <b>divisions</b> changes how much the octave is divided into equal parts, hence equal divisions of the octave - EDO.</li>
+      <li>The computer keyboard can be used to play the notes. For mobile users, the keypads can be tapped or held.</li>
+      <li>EDO SYNTH is a monotonal synthesiser, meaning only one note can be played at a time.</li>
+      <li>Two octaves of your microtonal scale are generated.</li>
     </ul>
+    <ul>
+      <li>It is possible to record yourself playing and download it. Just click the <b><red>record</red></b> button to begin and <b>stop</b> to end the recording.</li>
+      <li>The drop down menu lets you choose an <b>oscillator</b>, or waveform. It determines the fundamental timbre of the synthesiser.</li>
+      <li>The 8 sliders are the audio effects. They each have a definition when you hover over them. You can click and drag the sliders or you can also <b>MIDI map</b> them to a device. Just click the <b>map</b> button then move the knob or slider on your device you wish to be mapped. The MIDI mapping is remembered when you return, you can also remap or clear it. Make sure your MIDI device is plugged in before you load the page.</li>
+    </ul>
+    </FlexRow>
+    <FlexRow justify="center">
     <ul id="acknowledge">
-      Thanks to <a href="https://rory.ie" target="_blank">Rory Hughes</a> for help with coding<br/>
+      Thanks to <b><a href="https://twitter.com/rorhug" target="_blank">Rory Hughes</a></b> for help with coding.<br/>
+      And to the Screen Dive team for helping to realise this project.<br/>
     </ul>
+    </FlexRow>
     
     <p>
       {/* {audioDevices?.recorder?.state} */}
@@ -337,14 +349,14 @@ const Home = () => {
       ></button>
       <button id="stopRecord"
         disabled={!audioDevices || audioDevices.recorder.state === "stopped"}
-        onClick={stopRecording}>Stop</button>
+        onClick={stopRecording}>stop</button>
 
       {recordingURL && <a
         id="downloadButton"
         href={recordingURL}
-        download={new Date().toLocaleString() + ".ogg"}
+        download={"EDO SYNTH - " + new Date().toLocaleString() + ".ogg"}
       >
-        Download
+        download
       </a>}
     </p>
     {recordingURL && <p>
@@ -409,7 +421,7 @@ const Home = () => {
     </FlexRowWrapped>
 
     <FlexRow justify="center">
-      <FlexRowWrapped p="30px 0" mw="1030px">
+      <FlexRowWrapped p="20px 0" mw="990px">
         {layoutMap && notes.map((note, i) => {
           return <Fragment key={note}>
             <Note
