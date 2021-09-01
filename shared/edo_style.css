@@ -84,6 +84,7 @@ font-family: 'Cousine';
 font-size: 75%;
 margin-bottom: 0;
 }
+
 p a
 {
 text-decoration:none;
@@ -97,7 +98,6 @@ red{
 input[type="text"] {
   font-family: 'Cousine';
 }
-
 
 .top{
   flex-direction: row-reverse;

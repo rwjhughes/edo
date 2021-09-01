@@ -49,7 +49,7 @@ export const Slider = styled.input`
     height: ${p => p.big ? "36" : "18"}px; /* Slider handle height */
     border-radius: 18px;
     border-right: ${p => p.big ? "3px" : "2px"} solid rgb(71, 72, 151);
-    border-top: ${p => p.big ? "2px" : "1px"}  solid rgb(71, 72, 151);
+    border-top: ${p => p.big ? "2px" : "2px"}  solid rgb(71, 72, 151);
     background: #66518a; /* background */
     cursor: pointer; /* Cursor on hover */
   }
@@ -86,22 +86,22 @@ display: inline-block;
 border-right: 2px solid rgb(156, 156, 156);
 border-top: 1px solid rgb(170, 170, 170);
 border-radius: 1px;
-opacity:0.4;
+opacity:0.5;
 
 @keyframes pulser{
-0%{opacity:0.4}
+0%{opacity:0.6}
 50%{opacity:0.8}
-100%{opacity:0.4}
+100%{opacity:0.6}
 }
 
   span {
-    opacity: 0.5;
+    opacity: 0.6;
     font-size: 16px;
     padding: 8px;
   }
 
   &:hover{
-    // filter: drop-shadow(0 0 0.75rem crimson);
+    filter: drop-shadow(0 0 0.75rem crimson);
     opacity:1;
   }
 
